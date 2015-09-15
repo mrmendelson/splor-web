@@ -1,0 +1,15 @@
+
+
+  <h1>{{title }}</h1>
+
+  {{#if user}}
+  <p>Welcome, {{user.name}}</p>
+  <p>User Info:</p>
+  <span>id: <pre>{{user.id}}</pre></span>
+  <span>email: <pre>{{user.email}}</pre></span>
+  <span>khan access token: <pre>{{user.khanToken}}</pre></span>
+  <span>khan access secret: <pre>{{user.khanSecret}}</pre></span>
+  <span>khan user id: <pre>{{user.khanId}}</pre></span>
+  {{else}}
+  <a href="/auth/khan">Log in with Khan Academy</a>
+  {{/if}}
