@@ -6,7 +6,6 @@ var config = {
   dialect: process.env.DB_TYPE || 'postgres', // |'mariadb'|'sqlite'|'mysql'|'mssql',
   protocol: process.env.DB_TYPE || 'postgres',
   database: process.env.DB_NAME || 'splor',
-  logging:  process.env.DB_LOGGING || false,
   pool: {
     max: 5,
     min: 0,
