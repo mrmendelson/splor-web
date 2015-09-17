@@ -79,6 +79,8 @@ Provisioning (do not do this):
 ```
 heroku create splor
 heroku addons:create heroku-postgresql:hobby-dev
+heroku addons:create heroku-redis:hobby-dev
+heroku ps:scale web=1
 ```
 
 Setup
