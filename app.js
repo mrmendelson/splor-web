@@ -33,14 +33,14 @@ app.set('view engine', 'hbs')
 
 // sessions
 var session = require('express-session')
-var SessionStore = require('express-mysql-session')
+var RedisStore = require('connect-redis')(session)
 var sessionConfig = require('./config/sessions')
-var sessionStore = new SessionStore(sessionConfig)
+var redisConfig = require('./config/redis')
 
 app.use(session({
     key: sessionConfig.key,
     secret: sessionConfig.secret,
-    store: sessionStore,
+    store: new RedisStore(redisConfig),
     resave: true,
     saveUninitialized: true
 }))

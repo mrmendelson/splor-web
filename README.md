@@ -1,5 +1,7 @@
-# splore-api
-API & web Layer for Splore
+# splor-api
+API & web Layer for Splor
+
+#development
 
 - install dependencies
 
@@ -26,27 +28,24 @@ HOST=[localhost]
 PORT=[4000]
 
 DB_HOST=[localhost]
-DB_TYPE=[mysql]
-DB_PORT=[3306]
-DB_NAME=[splore]
-DB_USER=[root]
+DB_TYPE=[postgres]
+DB_PORT=[5432]
+DB_NAME=[splor]
+DB_USER=[]
 DB_PASS=[]
 
-SESSION_KEY=[splore_session]
-SESSION_HOST=[localhost]
-SESSION_PORT=[3306]
-SESSION_USER=[root]
-SESSION_PASS=[]
-SESSION_DB=[splore_sessions]
+REDIS_HOST=[localhost]
+REDIS_PORT=[6379]
+
+SESSION_KEY=[splor_session]
 ```
 
-- Set up local mysql instance running on localhost:3306 (if using defaults)
-- connect to mysql using `mysql -uroot`
+- Set up local postgres instance running on localhost:5432 (if using defaults)
+
 run:
 
 ```
-CREATE TABLE splore;
-CREATE TABLE splore_sessions;
+createdb splor
 ```
 
 - run migrations:
@@ -59,4 +58,32 @@ CREATE TABLE splore_sessions;
 
 ```
 gulp serve
+```
+
+#production
+
+Provisioning (do not do this):
+----
+
+```
+heroku create splor
+heroku addons:create heroku-postgresql:hobby-dev
+```
+
+Setup
+----
+
+```
+git remote add heroku https://git.heroku.com/splor.git
+```
+
+Updating
+----
+
+Migrations:
+
+```
+git push heroku
+heroku run bash
+./scripts/migrate
 ```
