@@ -60,6 +60,17 @@ createdb splor
 gulp serve
 ```
 
+Other dev
+----
+
+create migration:
+
+`./scripts/create-migration`
+
+rewind migration:
+
+`./scripts/undo-migration`
+
 #production
 
 Provisioning (do not do this):

@@ -21,6 +21,7 @@
     "pg": "^4.4.1",
     "pg-hstore": "^2.3.2",
     "sequelize": "^3.8.0",
+    "sequelize-cli": "^1.9.1",
     "serve-favicon": "^2.3.0"
   },
   "devDependencies": {
@@ -28,8 +29,7 @@
     "gulp-livereload": "^3.8.0",
     "gulp-nodemon": "^2.0.2",
     "gulp-plumber": "^1.0.0",
-    "gulp-sass": "^2.0.4",
-    "sequelize-cli": "^1.9.1"
+    "gulp-sass": "^2.0.4"
   },
   "engines": {
     "node": "4.0.x",
