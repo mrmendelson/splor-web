@@ -1,1 +1,1 @@
-web: npm start
+web: touch .env && npm start
