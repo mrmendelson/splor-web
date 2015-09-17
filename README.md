@@ -95,6 +95,5 @@ Migrations:
 
 ```
 git push heroku
-heroku run bash
-./scripts/migrate
+heroku run scripts/migrate
 ```

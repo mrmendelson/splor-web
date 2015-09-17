@@ -2,9 +2,9 @@ require('dotenv').load()
 
 var config = {
   host: process.env.DB_HOST || 'localhost',
+  port: process.env.DB_PORT || 5432,
   dialect: process.env.DB_TYPE || 'postgres', // |'mariadb'|'sqlite'|'mysql'|'mssql',
   protocol: process.env.DB_TYPE || 'postgres',
-  port: process.env.DB_PORT || 5432,
   database: process.env.DB_NAME || 'splor',
   logging:  process.env.DB_LOGGING || false,
   pool: {
@@ -26,6 +26,6 @@ if (config.dialect === 'sqlite') {
 module.exports = {
   development: config,
   production: {
-    use_env_variable: process.env.DATABASE_URL
+    use_env_variable: 'DATABASE_URL'
   }
 }
