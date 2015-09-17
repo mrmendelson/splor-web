@@ -4,11 +4,12 @@ var config
 
 if (process.env.REDIS_URL) {
   var parsed = require('redis-url').parse(process.env.REDIS_URL)
+  var dbNum = parseInt(parsed.database, 10)
   config = {
-    host: parsed.host,
+    host: parsed.hostname,
     port: parsed.port,
     pass: parsed.password,
-    db: parsed.database
+    db: dbNum
   }
 } else {
   config = {
