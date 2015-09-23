@@ -1,0 +1,21 @@
+#!/usr/bin/env node
+
+var hard = process.argv.slice(2).join(' ').match(/\b-*HARD\b/i)
+
+var async = require('async')
+var db = require('../lib/db')
+
+var models = [
+  require('../lib/models/Exercise'),
+  require('../lib/models/User')
+]
+
+db.sync({force: hard})
+  .then(function() {
+    console.log('completed sync.')
+    process.exit(0)
+  })
+  .catch(function(err) {
+    console.error(err.message)
+    process.exit(1)
+  })
