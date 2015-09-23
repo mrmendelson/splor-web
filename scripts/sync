@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+var async = require('async')
+
+var models = [
+  require('../lib/models/Exercise'),
+  require('../lib/models/User')
+]
+
+async.forEachSeries(models, function(Model, done) {
+  Model.sync({force:true})
+    .then(function() {
+      console.log(arguments)
+      done()
+    })
+}, function() {
+  console.log('done', arguments)
+})
