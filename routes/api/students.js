@@ -21,6 +21,86 @@ router.get('/', function(req, res, next) {
     .catch(next)
 })
 
+/**
+ * Refresh
+ *
+ * Refreshes all local data about students and their exercises, so our local calculations will be correct.
+ */
+
+router.get('/refresh', function(req, res, next) {
+  khan(req).request('/user/students')
+    .then(function(students) {
+      if (!students) return
+      async.map(students, function(student, done) {
+        upsertUser(student, function(err, userInfo, user) {
+          if (err) return done(err)
+          khan(req).request('/user/exercises', { kaid: userInfo.khanId })
+            .then(function(exercises) {
+              if (!exercises) return
+              // TODO: this appears to not call back properly... need to figure out where we're not returning correctly.
+              if (exercises.hasOwnProperty('[]')) return done(null, [])
+              user.removeExercises()
+              .then(function() {
+                async.map(exercises, function(info, done) {
+                  Exercise.create({
+                    khan_id: info.exercise_model.id,
+                    URL: info.exercise_model.ka_url,
+                    name: info.exercise_model.pretty_display_name,
+                    kind: info.exercise_model.kind,
+                    struggling: info.exercise_states.struggling,
+                    proficient: info.exercise_states.proficient,
+                    practiced: info.exercise_states.practiced,
+                    mastered: info.exercise_states.mastered
+                  })
+                  .then(function(ex) {
+                    if (!ex) return
+                    done(null, ex)
+                  })
+                  .catch(done)
+                }, function(err, exs) {
+                  if (err) return done(err)
+                  user.setExercises(exs)
+                    .catch(done)
+                    .then(function(r) {
+                      if (!r) return
+                      done(null, user)
+                    })
+                })
+              })
+              .catch(done)
+              })
+              .catch(done)
+        })
+      }, function(err, users) {
+        if (err) return next(err)
+        var userList = users.map(JSON.stringify)
+        res.json(userList)
+      })
+    })
+    .catch(next)
+})
+
+/*
+ * :id
+ *
+ * Shows the specified user, including their exercises.
+ */
+router.get('/:id', function(req, res, next) {
+  User.findById(req.params.id, {
+    include: [{
+        model: Exercise,
+        as: 'Exercises'
+    }]
+  })
+  .then(function(user) {
+    if (user) res.json(user)
+  })
+  .catch(next)
+})
+
+
+// Deprecated: Khan requests (above will supercede)
+
 function idRequest(path, req, res, next) {
   var id = req.params.kaid
   var params = req.query || {}
@@ -36,69 +116,6 @@ function idRequest(path, req, res, next) {
     return next(new Error('Unsupported id passed. You must pass an id starting with "kaid_".'))
   }
 }
-
-/**
- * Refresh
- *
- * Refreshes all local data about students and their exercises, so our local calculations will be correct.
- */
-
-router.get('/refresh', function(req, res, next) {
-  console.log('refreshing students')
-  khan(req).request('/user/students')
-    .then(function(students) {
-      if (!students) return
-      console.log('got students')
-      async.map(students, function(student, done) {
-        console.log('mapping a student')
-        upsertUser(student, function(err, userInfo, user) {
-          if (err) return done(err)
-          khan(req).request('/user/exercises', { kaid: userInfo.khanId })
-            .then(function(exercises) {
-              if (!exercises) return
-              if (exercises.hasOwnProperty('[]')) return done(null, [])
-              console.log('got exercises', exercises)
-              // TODO: clear out user exercises
-              user.getExercises().then(function(exercises) {
-                console.log('TODO: CLEAR EXERCISES: ', exercises)
-              })
-              async.map(exercises, function(info, done) {
-                console.log(info)
-                Exercise.create({
-                  khan_id: info.exercise_model.id,
-                  URL: info.exercise_model.ka_url,
-                  name: info.exercise_model.pretty_display_name,
-                  kind: info.exercise_model.kind,
-                  struggling: info.exercise_states.struggling,
-                  proficient: info.exercise_states.proficient,
-                  practiced: info.exercise_states.practiced,
-                  mastered: info.exercise_states.mastered
-                })
-                .catch(done)
-                .then(function(ex) { done(null, ex) })
-              }, function(err, exs) {
-                if (err) return done(err)
-                user.setExercises(exs)
-                  .catch(done)
-                  .then(function() {
-                    if (!students) return
-                    done(null, user)
-                  })
-              })
-            })
-            .catch(done)
-        })
-      }, function(err, users) {
-        console.log('student errir', err)
-        if (err) return next(err)
-        var userList = users.map(JSON.stringify)
-        res.json(userList)
-      })
-    })
-    .catch(next)
-})
-
-// User specific requests
 
 router.get('/:kaid', function(req, res, next) {
   idRequest('/user', req, res, next)

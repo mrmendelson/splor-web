@@ -1,3 +1,0 @@
-#!/bin/bash
-
-./node_modules/.bin/sequelize migration:create --config config/db-cli.js --name $@

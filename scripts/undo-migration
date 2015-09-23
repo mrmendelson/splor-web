@@ -1,3 +1,0 @@
-#!/bin/bash
-
-./node_modules/.bin/sequelize db:migrate:undo --config config/db-cli.js --models-path lib/models
