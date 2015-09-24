@@ -10,6 +10,8 @@ var models = [
   require('../lib/models/User')
 ]
 
+if (hard) console.log('deleting existing data...')
+
 db.sync({force: hard})
   .then(function() {
     console.log('completed sync.')

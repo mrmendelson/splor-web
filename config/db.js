@@ -12,7 +12,8 @@ var config = {
     idle: 10000
   },
   username: process.env.DB_USER,
-  password: process.env.DB_PASS
+  password: process.env.DB_PASS,
+  logging: false
 }
 
 if (config.dialect === 'sqlite') {

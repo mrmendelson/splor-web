@@ -1,0 +1,1 @@
+DEBUG=splor* node -e "require('./lib/shared/refresh-students.js').withId("$1", function(err) { if (err) { console.error('FAILED: ', err.message); process.exit(1) } else { process.exit(0) } })"
