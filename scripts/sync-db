@@ -4,10 +4,12 @@ var hard = process.argv.slice(2).join(' ').match(/\b-*HARD\b/i)
 
 var async = require('async')
 var db = require('../lib/db')
+var models = require('../lib/models')
 
 var models = [
-  require('../lib/models/Exercise'),
-  require('../lib/models/User')
+  models.Exercise,
+  models.Skill,
+  models.User
 ]
 
 if (hard) console.log('deleting existing data...')

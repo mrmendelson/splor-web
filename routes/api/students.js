@@ -3,7 +3,7 @@ var router = express.Router()
 var debug = require('debug')('splor:api:students')
 var khanConfig = require('../../config/khan')
 var khanAPI = require('khan')(khanConfig.key, khanConfig.secret)
-var User = require('../../lib/models/User')
+var User = require('../../lib/models').User
 
 function khan(req) {
   var user = req.user
