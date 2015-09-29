@@ -5,6 +5,7 @@ var Promise = require('bluebird')
 var models = require('../lib/models')
 var User = models.User
 var Pairing = models.Pairing
+var Exercise = models.Exercise
 
 /* GET home page. */
 
@@ -21,7 +22,18 @@ router.get('/', function(req, res, next) {
   if (!req.user) return render()
   // TODO: need to find where teacher is req.user instead.
   Promise.join(
-    Pairing.findAll(),
+    Pairing.findAll({
+      include: [{
+        model: User,
+        as: 'Tutor'
+      }, {
+        model: User,
+        as: 'Tutee'
+      }, {
+        model: Exercise,
+        as: 'Exercise'
+      }]
+    }),
     User.findAll({
       include: [{
         model: User,

@@ -48,17 +48,19 @@
     <div class="dash_item-wrapper generated clear-both">
       <div class="dash_item skill col-md-2 col-xs-12">
         <h4>Skill</h4>
-        <p>Long Division</p>
+        <p>{{Exercise.name}}</p>
       </div><!--/dash_item skill-->
       <div class="dash_item students col-md-7 col-xs-12">
         <h4>Students</h4>
         <div class="dash_item student">
-          <img class="dash_item tutor" src="/img/profile_mike.png">
-          <h3 class="student-name">Morgan Brewster</h3>
+          <img class="dash_item tutor" src="{{Tutor.avatar}}">
+          <h3 class="student-name">{{Tutor.name}}</h3>
+          <span>tutor</span>
         </div><!--/dash_item student-->
         <div class="dash_item student">
-          <img class="dash_item tutee" src="/img/profile_mike.png">
-          <h3 class="student-name">Morgan Brewster</h3>
+          <img class="dash_item tutee" src="{{Tutee.avatar}}">
+          <h3 class="student-name">{{Tutee.name}}</h3>
+          <span>tutee</span>
         </div><!--/dash_item student-->
       </div><!--/dash_item students-->
       <div class="btn-group dash_item btns col-md-2" role="group" aria-label="...">
