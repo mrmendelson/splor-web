@@ -1,0 +1,341 @@
+/**************************
+
+ * MOBILE STYLES *
+
+ * CH01 - OVERALL
+ * CH02 - TYPOGRAPHY
+ * CH03 - HEADER
+**************************/
+
+
+@media only screen and (max-width: 480px){
+
+
+/**************************
+
+ * CH01 - OVERALL *
+
+**************************/
+#nav_left {
+  display:none;
+}
+
+}
+
+/**************************
+
+ * DESKTOP STYLES *
+
+ * CH01 - OVERALL
+ * CH02 - TYPOGRAPHY
+ * CH03 - HEADER
+**************************/
+
+
+/**************************
+
+ * CH01 - OVERALL *
+
+**************************/
+.row {
+  margin-bottom:15px;
+}
+.float-left {
+  float:left;
+}
+.float-right {
+  float:right;
+}
+.clear-left {
+  clear:left;
+}
+.clear-right {
+  clear:right;
+}
+.clear-both {
+  clear:both;
+}
+img.float-left {
+  margin:0 25px 0 0;
+}
+input[type=checkbox] {
+  margin-right:5px;
+}
+input, select {
+  border:1px solid #ccc;
+  border-radius:3px;
+  padding:5px 10px;
+}
+input {
+  color:#555;
+}
+input#search {
+  margin:40px 0 0;
+  width:260px;
+}
+span.glyphicon {
+  margin:0 5px 0 0;
+}
+
+/**************************
+
+ * CH02 - TYPOGRAPHY *
+
+**************************/
+body {
+  font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+p, li {
+  font-size:12px;
+  font-family:arial, sans-serif;
+}
+a, p a {
+  color:#05486b;
+  text-decoration:underline;
+}
+ul {
+  list-style:none inside none;
+}
+ul#nav_main {
+  padding:0;
+}
+ul#nav_main li {
+  font-size:15px;
+  margin:0 10px 0 0;
+}
+ul#nav_admin {
+  text-align:right;
+}
+ul#nav_admin a {
+  color:#fff;
+}
+ul#nav_main li, ul#nav_admin li {
+  display:inline;
+  font-family:'arial', sans-serif;
+}
+ul#nav_main li a, ul#nav_admin li a {
+  text-decoration:none;
+}
+ul#nav_main li a:hover, ul#nav_admin li a:hover {
+  border-bottom:1px solid;
+}
+ul#nav_admin li {
+  border-right:1px solid #05486b;
+  padding:0 8px;
+}
+ul#nav_admin li.last {
+  margin-right:0;
+  padding-right:0;
+  border:0 none;
+}
+ul#nav_main li, ul#nav_main li a {
+  color:#fff;
+}
+h1, h2, h3, h4, p, span {
+  font-weight:lighter;
+  color:#555;
+}
+h2 {
+  font-family:'museo', sans-serif;
+  font-size:20px;
+  font-weight:400;
+}
+h2.tagline {
+  margin:5px 0 7px;
+  font-family:'verveine', sans-serif;
+  font-size:30px;
+  font-weight:lighter;
+}
+h3 {
+  font-family:'verveine', sans-serif;
+  margin:0 0 20px;
+  font-size:22px;
+}
+h3.student-name {
+  font-family:'verveine', sans-serif;
+  font-size:18px;
+  margin:0;
+}
+h4 {
+  font-family: 'museo', sans-serif;
+  font-size:16px;
+}
+.white {
+  color:#fff;
+}
+
+
+/**************************
+
+ * CH03 - HEADER *
+
+**************************/
+#header {
+  color:#fff;
+  background:url('/img/bg_header.png') repeat-x;
+  height:218px;
+  padding:20px 0;
+    border-top:0 none;
+    border-left:0 none;
+    border-right:0 none;
+    border-bottom: 3px solid transparent;
+    -moz-border-image: -moz-linear-gradient(right, #a8ec00 0%, #05d4cd 100%);
+    -webkit-border-image: -webkit-linear-gradient(right, #a8ec00 0%, #05d4cd 100%);
+    border-image: linear-gradient(to left, #a8ec00 0%, #05d4cd 100%);
+    border-image-slice: 1;
+}
+ul#nav_main a {
+  color:#fff;
+}
+.btm_left {
+  float:left;
+}
+.btm_right {
+  text-align:right;
+  margin:10px 0 0;
+}
+#nav_left {
+  color:#555;
+}
+#nav_left li {
+  display:block;
+  margin:0 0 15px;
+}
+div.pairings {
+  color:#555;
+  padding:20px 0 0;
+}
+.dash_header h2 {
+  margin:0 10px 0 0;
+}
+.dash_header-left {
+  float:left;
+}
+.dash_header-left a {
+  margin:20px 0 0;
+}
+ul.dash_header {
+  margin:2px 0 0;
+  padding:0;
+}
+ul.dash_header li {
+  border-right:1px solid;
+  display:inline;
+  padding:0 5px;
+}
+ul.dash_header li.last {
+  border:0 none;
+}
+div.dash_item.skill, div.dash_item.students {
+  float:left;
+  margin:0 30px 0 0;
+}
+.dash_header img {
+  position:absolute;
+  left:50%;
+  width:137px;
+  margin-left:-69px;
+  margin-top:-9px;
+}
+.dash_item-wrapper .btn-group {
+    position:absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  -ms-transform: translateY(-50%); /* IE 9 */
+     -webkit-transform: translateY(-50%); /* Safari */
+}
+div.dash_item.btns .btn {
+  border:1px solid #05d4cd;
+  border-radius:3px;
+  padding:5px 10px;
+  position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  -ms-transform: translateY(-50%); /* IE 9 */
+     -webkit-transform: translateY(-50%); /* Safari */
+}
+.dash_header-right select {
+  margin:2px 0 0;
+}
+.dash_header {
+  height:50px;
+  padding:20px 0 0;
+}
+img.dash_item.tutor, img.dash_item.tutee {
+  border-width:2px;
+  border-style:solid;
+  width:45px;
+  height:45px;
+  float:left;
+}
+div.dash_pairings div.dash_item-wrapper {
+  border-left:5px solid #a8ec00;
+  position:relative;
+}
+div.dash_workshops div.dash_item-wrapper {
+  border-left:5px solid #05d4cd;
+}
+div.dash_item-wrapper {
+  border:1px solid #ddd;
+  margin:0 0 25px;
+  border-radius:3px;
+  padding:10px 20px;
+  height:115px;
+  box-shadow:0px 1px 2px rgba(0, 0, 0, .05);
+}
+div.dash_item-wrapper.custom {
+  background-color:#eeeeee;
+  background-image: url('/img/custom-gears.png');
+  background-position:99% 8%;
+  background-repeat:no-repeat;
+}
+div.dash_item.student {
+  float:left;
+  width:50%;
+}
+img.dash_item.tutor, img.dash_item.tutee {
+  margin:0 5px 0 0;
+}
+img.dash_item.tutor {
+  border-color:#349acf;
+}
+img.dash_item.tutee {
+  border-color:#a8ec00;
+}
+
+.spin {
+  -webkit-transform-origin: 50% 50%;
+  transform-origin:50% 50%;
+  -ms-transform-origin:50% 50%; /* IE 9 */
+  -webkit-animation: spin 1s infinite linear;
+  -moz-animation: spin 1s infinite linear;
+  -o-animation: spin 1s infinite linear;
+  animation: spin 1s infinite linear;
+}
+
+@-moz-keyframes spin {
+  from {
+    -moz-transform: rotate(0deg);
+  }
+  to {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

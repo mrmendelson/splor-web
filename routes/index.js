@@ -1,10 +1,35 @@
 var express = require('express')
 var router = express.Router()
+var Promise = require('bluebird')
+
+var models = require('../lib/models')
+var User = models.User
+var Pairing = models.Pairing
 
 /* GET home page. */
 
-router.get('/', function(req, res) {
-  res.render('index', { title: 'Splor', user: req.user })
+router.get('/', function(req, res, next) {
+  var students, pairings
+  var render = function() {
+    res.render('index', {
+      title: 'Splor',
+      user: req.user,
+      students: students,
+      pairings: pairings
+    })
+  }
+  if (!req.user) return render()
+  // TODO: need to find where teacher is req.user instead.
+  Promise.join(
+    Pairing.findAll(),
+    User.findAll()
+  )
+  .catch(next)
+  .spread(function(ps, us) {
+    pairings = ps
+    students = us
+    render()
+  })
 })
 
 module.exports = router

@@ -4,57 +4,90 @@ var debug = require('debug')('splor:api:students')
 var khanConfig = require('../../config/khan')
 var khanAPI = require('khan')(khanConfig.key, khanConfig.secret)
 var models = require('../../lib/models')
+var async = require('async')
+var Promise = require('bluebird')
 
 var User = models.User
 var Exercise = models.Exercise
+var Pairing = models.Pairing
+
+function generatePairings(users) {
+  var mastered = []
+  var struggling = []
+  users.forEach(function(u) {
+    if (u.Skill.mastered) mastered.push(u)
+    if (u.Skill.struggling) struggling.push(u)
+  })
+  if (!mastered.length) return [] //'Not enough mastered users to generate pairings.'
+  if (!struggling.length) return [] //'Not enough struggling users to generate pairings.'
+  var matches = struggling.reduce(function(o, s) {
+    if (mastered.length) {
+      var helper = mastered.pop()
+      o.push({
+        tutee: s,
+        tutor: helper
+      })
+    } else {
+      // TODO: this is a struggling user, but we've already assigned all the mastered students. Is anything else necessary here?
+    }
+    return o
+  }, [])
+  return matches
+}
+
+function refreshPairings(exercise, callback) {
+  exercise.setPairings([])
+  // .then(function() {
+  //   return Pairing.destroy({
+  //     where: { ExerciseKhanId: exercise.khan_id }
+  //   })
+  // })
+  .then(function() {
+    var pairings = generatePairings(exercise.Users)
+    async.map(pairings, function(pairing, done) {
+      Pairing.create()
+      .then(function(p) {
+        return Promise.join(
+          p.setTutor(pairing.tutor),
+          p.setTutee(pairing.tutee),
+          p.setExercise(exercise),
+          exercise.addPairing(p)
+        ).then(function() {
+          done(null, p)
+        })
+      })
+      .catch(function(err) {
+        // console.warn('failed generating pairings for exercise ' + ex.id + ', ' + err.message)
+        done(null)
+      })
+    }, callback)
+  })
+}
 
 /**
- * pairings for an exercise
+ * refresh all pairings
  *
- * returns a mapping of student pairings for the specified exercise.
+ * generates all pairings for all exercises.
  */
-router.get('/exercise/:id', function(req, res, next) {
-  var teacher = req.user
-
-  Exercise.findById(req.params.id)
-  .catch(next)
-  .then(function(exercise) {
-    if (!exercise) return res.status(404).json({error: 'Not found.'})
-    return exercise.getUsers(
-      /* TODO: this should filter to the currently authenticated teacher */
-    )
-    .then(function(users) {
-      if (users.length < 2) {
-        return res.json({error: 'Not enough users have this exercise to find a match.'})
-      }
-      var mastered = []
-      var struggling = []
-      users.forEach(function(u) {
-        if (u.skill.mastered) mastered.push(u)
-        if (u.skill.struggling) struggling.push(u)
-      })
-      if (!mastered.length) return res.json({error: 'Not enough mastered users to generate pairings.'})
-      if (!struggling.length) return res.json({error: 'Not enough struggling users to generate pairings.'})
-      var matches = struggling.reduce(function(o, s) {
-        if (!mastered.length) {
-          o[s.username] = 'Unable to find a match.'
-        } else {
-          var helper = mastered.pop()
-          o[s.username] = helper.username
+router.get('/refresh', function(req, res, next) {
+  Exercise.findAll({
+    include: User
+  })
+  .then(function(exercises) {
+    async.reduce(exercises, 0, function(memo, p, done) {
+      refreshPairings(p, function(err, pairings) {
+        if (err) {
+          console.log('ERROR:', err.message)
+          console.log(err.sql)
+          console.log(err.stack)
         }
-        return o
-      }, {})
-      res.json(matches)
+        done(null, memo + (err ? 0 : pairings.filter(function(p) { return !!p }).length))
+      })
+    }, function(err, count) {
+      if (err) return next(err)
+      return res.json({message: 'successfully refreshed ' + exercises.length + ' exercises, creating ' + count + ' pairings.'})
     })
   })
-})
-
-router.get('/', function(req, res, next) {
-  khan(req).request('/user/students')
-    .then(function(students) {
-      res.json(students)
-    })
-    .catch(next)
 })
 
 module.exports = router
