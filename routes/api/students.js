@@ -3,7 +3,10 @@ var router = express.Router()
 var debug = require('debug')('splor:api:students')
 var khanConfig = require('../../config/khan')
 var khanAPI = require('khan')(khanConfig.key, khanConfig.secret)
-var User = require('../../lib/models').User
+var models = require('../../lib/models')
+var Exercise = models.Exercise
+var User = models.User
+var refreshStudents = require('../../lib/shared/refresh-students')
 
 function khan(req) {
   var user = req.user
@@ -16,6 +19,18 @@ router.get('/', function(req, res, next) {
       res.json(students)
     })
     .catch(next)
+})
+
+/**
+ * refresh students
+ *
+ * Fetches all students from khan academy and stores them in our database.
+ */
+router.get('/refresh', function(req, res, next) {
+  refreshStudents.withUser(req.user, function(err, userList) {
+    if (err) return res.status(500).json({error: err.message})
+    res.json({message: 'refreshed ' + userList.length + ' students.'})
+  })
 })
 
 /*

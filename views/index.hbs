@@ -1,16 +1,15 @@
-
-
-  <h1>{{title }}</h1>
-
-  {{#if user}}
-  <p>Welcome, {{user.name}}</p>
-  <p>User Info:</p>
-  <span>id: <pre>{{user.id}}</pre></span>
-  <span>email: <pre>{{user.email}}</pre></span>
-  <span>khan access token: <pre>{{user.khanToken}}</pre></span>
-  <span>khan access secret: <pre>{{user.khanSecret}}</pre></span>
-  <span>khan user id: <pre>{{user.khanId}}</pre></span>
-  <span>teacher: <pre>{{user.teacher}}</pre></span>
+{{#unless user}}
+  {{> loggedout}}
+{{else}}
+<div class="row">
+  {{#if students}}
+    {{> pairings}}
   {{else}}
-  <a href="/auth/khan">Log in with Khan Academy</a>
+  <div class="col-xs-12 main">
+    <h2>No students found</h2>
+    <p>To generate pairings, you'll need to retrieve your khan students.</p>
+    <a href="" class="retrieve-students"><span class="glyphicon glyphicon-refresh spinner"></span>Retrieve students now.</a></li>
+  </div>
   {{/if}}
+</div><!--/row-->
+{{/unless}}

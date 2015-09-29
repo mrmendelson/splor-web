@@ -4,16 +4,82 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width">
   <title>{{title }}</title>
-  <link rel="stylesheet" href="/css/style.css">
   {{#if ENV_DEVELOPMENT}}
     <script src="http://localhost:35729/livereload.js"></script>
   {{/if}}
+  <script src="https://use.typekit.net/ynr0amy.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Splor&mdash;Learn Personalized</title>
+
+  <!-- Bootstrap -->
+  <link href="/css/bootstrap-theme.css" rel="stylesheet">
+  <link href="/css/bootstrap.css" rel="stylesheet">
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <link href="/css/splor.css" rel="stylesheet">
+  <link href="/css/header.css" rel="stylesheet">
+
+  <link href="/css/loggedout.css" rel="stylesheet">
 </head>
 <body>
+  <div id="header" class="col-xs-12">
+    <div class="container">
+      <div class="row">
+        <a href="#"><img class="float-left" src="/img/logo.png"></a>
+          <div class="float-left">
+            <h2 class="white tagline">Learn personalized.</h2>
+            {{#if user}}
+            <ul id="nav_main">
+              <li><a href="#">Dashboard</a></li>
+              <li><a href="#">Manage Students</a></li>
+              <li><a href="#">Statistics</a></li>
+            </ul><!--/nav_main-->
+            {{/if}}
+          </div>
+          <!-- <input class="float-right" id="search" placeholder="Search" type=search name=s> -->
+      </div><!--/row-->
+      {{#if user}}
+      <div class="row">
+        <div class="btm_left nav-profile">
+          <img class="float-left avatar" src="{{user.avatar}}">
+          <div class="float-left">
+            <h4 class="white">Welcome, {{user.name}}</h4>
+            <!-- <p class="white">Active since October 2015</p> -->
+          </div>
+        </div><!--/thumb_profile-->
+        {{/if}}
+        <div class="btm_right float-right">
+          <!-- <h4><a href="https://www.khanacademy.org/">Khan Academy</a></h4> -->
+          <ul id="nav_admin">
+            {{#if user}}
+            <li><a href="#"><span class="glyphicon glyphicon-cog white"></span>Settings</a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-user white"></span>My Account</a></li>
+            <li class="last"><a href="/logout"><span class="glyphicon glyphicon-log-out white"></span>Log Out</a></li>
+            {{else}}
+            <li class="last"><a href="/auth/khan"><span class="glyphicon glyphicon-user white"></span>Log in with Khan Academy</a></li>
+            {{/if}}
+          </ul><!--/nav_admin-->
+        </div><!--/btm_right-->
+      </div><!--/row-->
+    </div><!--/container-->
+  </div><!--/header-->
 
+  <div class="container" id="main">
+    {{{body}}}
+  </div><!--/container-->
 
-  {{{body}}}
-
-
-  </body>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="/js/bootstrap.js"></script>
+  <script src="/js/main.js"></script>
+</body>
 </html>
