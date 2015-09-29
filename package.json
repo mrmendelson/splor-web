@@ -21,7 +21,7 @@
     "khan": "jesseditson/khan#request_params",
     "morgan": "^1.6.1",
     "passport": "^0.3.0",
-    "passport-khan": "^0.2.0",
+    "passport-khan": "jesseditson/passport-khan#jesseditson_khan",
     "pg": "^4.4.1",
     "pg-hstore": "^2.3.2",
     "redis-url": "^1.2.1",
