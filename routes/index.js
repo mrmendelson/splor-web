@@ -22,12 +22,18 @@ router.get('/', function(req, res, next) {
   // TODO: need to find where teacher is req.user instead.
   Promise.join(
     Pairing.findAll(),
-    User.findAll()
+    User.findAll({
+      include: [{
+        model: User,
+        as: 'Teachers',
+        where: { id: req.user.id }
+      }]
+    })
   )
   .catch(next)
   .spread(function(ps, us) {
-    pairings = ps
-    students = us
+    if (ps.length) pairings = ps
+    if (us.length) students = us
     render()
   })
 })

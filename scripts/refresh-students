@@ -3,4 +3,5 @@ if [ -z "$1" ]
   echo "refresh-students requires a first argument of an authenticated user ID."
   exit 1
 fi
-DEBUG=splor*,$2 node -e "require('./lib/shared/refresh-students.js').withId("$1", function(err) { if (err) { console.error('FAILED: ', err.message); process.exit(1) } else { process.exit(0) } })"
+DEBUG=splor*,$2 node -e "
+require('bluebird').longStackTraces(); require('./lib/shared/refresh-students.js').withId("$1", function(err) { if (err) { console.error('FAILED: ', err.message); process.exit(1) } else { process.exit(0) } })"

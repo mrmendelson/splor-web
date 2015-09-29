@@ -13,11 +13,11 @@ router.get('/login', function(req, res){
   res.render('auth/login', { user: req.user })
 })
 
-router.post('/authenticate', function(req, res) {
-  if (!req.body.email || !req.body.password) return res.json(406, {error: 'must pass email and password'})
-  // TODO:
-  res.send(406, {error: 'not implemented'})
-})
+// Authenticate is not supported yet.
+// router.post('/authenticate', function(req, res) {
+//   if (!req.body.email || !req.body.password) return res.json(406, {error: 'must pass email and password'})
+//   res.send(406, {error: 'not implemented'})
+// })
 
 // GET /auth/khan
 //   Use passport.authenticate() as route middleware to authenticate the
