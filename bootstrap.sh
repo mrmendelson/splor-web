@@ -47,7 +47,7 @@ fi
 
 # defaults
 [ -z "${DB_NAME}" ] && DB_NAME=splor
-read -r -d '' DEFAULT_ENV <<-'EOF'
+DEFAULT_ENV="
 # required
 
 KHAN_CONSUMER_KEY=
@@ -55,8 +55,9 @@ KHAN_CONSUMER_SECRET=
 TOKEN_SECRET=
 SESSION_SECRET=
 
-
 # optional
+
+BLUEBIRD_DEBUG=1
 
 APP_PORT=8080
 APP_IP=127.0.0.1
@@ -64,17 +65,17 @@ APP_IP=127.0.0.1
 DB_TYPE=sqlite
 DB_NAME=${DB_NAME}
 SQLITE_STORE=sqlite/${DB_NAME}.sqlite
-DB_HOST=
-DB_PORT=
-DB_USER=
-DB_PASS=
+# DB_HOST=
+# DB_PORT=
+# DB_USER=
+# DB_PASS=
 
 REDIS_HOST=127.0.0.1
 # this is a custom port because we run redis with npm start inside of package.json
 REDIS_PORT=7889
-REDIS_PASS=
-REDIS_URL=
-EOF
+# REDIS_PASS=
+# REDIS_URL=
+"
 
 # create folders
 mkdir -p lib/db-seeders
@@ -83,7 +84,7 @@ mkdir -p sqlite
 # create env file
 if [ -z $env_exists ]; then
   echo "creating .env file"
-  cat > .env $DEFAULT_ENV
+  echo $DEFAULT_ENV > .env
   echo "created env file."
   echo "you will need to add your Khan Academy credentials. Would you like to edit this file? [Y/n]"
   read -n edit_file
@@ -105,7 +106,7 @@ echo "migrating database"
 sequelize db:migrate
 
 # done
-cat <<-EOF
+echo "
 ########################################
 #    Completed bootstrapping splor.    #
 #    You can now run the dev server    #
@@ -116,4 +117,4 @@ cat <<-EOF
 #    this will start a live-reloaded   #
 #    local development server.         #
 ########################################
-EOF
+"
