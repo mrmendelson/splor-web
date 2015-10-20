@@ -11,7 +11,9 @@ router.get('/khan/*', function(req, res, next) {
   var user = req.user
   var params = req.query
   var khan = khanAPI(user.khanSecret, user.khanToken)
-  khan.request(req.originalUrl.replace(/^\/api\/khan/i, ''), params)
+  var path = req.originalUrl.replace(/^\/api\/khan/i, '')
+  var url = 'https://www.khanacademy.org/api' + path
+  khan.request(url, params)
     .then(res.json.bind(res))
     .catch(next)
 })
