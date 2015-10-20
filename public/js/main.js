@@ -2,6 +2,7 @@ var Route = require('route-parser')
 var $ = require('jquery')
 
 var modules = [
+  require('./global'),
   require('./dashboard'),
   require('./students')
 ]

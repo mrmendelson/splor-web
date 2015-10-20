@@ -2,3 +2,22 @@
   width:75px;
   height:75px;
 }
+
+.container {
+  clear: both;
+}
+
+.sticky.stuck {
+  position:relative;
+  display:block;
+}
+
+.students_header {
+  height: 100px;
+  background-color: white;
+  padding:10px;
+  z-index: 10;
+}
+.students_header .header-actions {
+  clear:both;
+}

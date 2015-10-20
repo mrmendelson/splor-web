@@ -1,24 +1,31 @@
 <div class="col-xs-3" id="nav_left">
   <h2>Show...</h2>
   <ul>
-    <li><h3>Type</h3>
+    <li>
+      <h3>Type</h3>
       <ul>
         <li><input type="checkbox" aria-label="Pairings">Pairings</li>
         <li><input type="checkbox" aria-label="Pairings">Workshops</li>
       </ul>
-    <li><h3>Class</h3>
+    </li>
+    {{#if classes}}
+    <li>
+      <h3>Class</h3>
       <ul>
-        <li><input type="checkbox" aria-label="Pairings">Class A</li>
-        <li><input type="checkbox" aria-label="Pairings">Class B</li>
-        <li><input type="checkbox" aria-label="Pairings">Class C</li>
+        {{#each classes}}
+        <li><input type="checkbox" aria-label="Class" value={{id}}>{{name}}</li>
+        {{/each}}
       </ul>
-    <li><h3>Subject</h3>
+    </li>
+    {{/if}}
+    <!-- <li>
+      <h3>Subject</h3>
       <ul>
         <li><input type="checkbox" aria-label="Pairings">Math</li>
         <li><input type="checkbox" aria-label="Pairings">Science</li>
         <li><input type="checkbox" aria-label="Pairings">English</li>
       </ul>
-    </li>
+    </li> -->
     <!-- <li><input type="checkbox" aria-label="Pairings"><h3>Suggested</h3></li>
     <li><input type="checkbox" aria-label="Pairings"><h3>Custom</h3></li> -->
   </ul>

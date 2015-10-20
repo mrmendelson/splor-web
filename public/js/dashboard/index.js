@@ -1,4 +1,5 @@
 var $ = require('jquery')
+var util = require('../util')
 
 module.exports.path = '/'
 module.exports.run = function() {
@@ -8,13 +9,7 @@ module.exports.run = function() {
 
 function endpointRefresh(endpoint, done) {
   var showAlert = function(message, isError) {
-    var a = $('<div role="alert">')
-      .addClass('alert-dismissible alert')
-      .addClass(isError ? 'alert-error': 'alert-success')
-      .append('<button type="button" class="close" data-dismiss="alert">&times;</button>')
-      .append(message)
-    $('#main').prepend(a)
-    a.alert()
+    util.alert()
     done()
     if (!isError) setTimeout(function() { window.location.reload() }, 2000)
   }

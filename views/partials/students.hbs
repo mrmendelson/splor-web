@@ -1,0 +1,19 @@
+{{#each students}}
+<div class="dash_item-wrapper student clear-both float-left col-xs-12" data-filter="{{name}}">
+  <input type="checkbox" class="float-left" aria-label="Student" value={{id}}><h3 class="float-left">{{name}}</h3>
+  <ul class="classes float-right col-md-2 col-xs-12">
+    {{#if Classes}}
+    <li><h5>Classes</h5></li>
+    {{#each Classes}}
+    <li class="dash_item class">
+      <p>{{name}}</p>
+    </li>
+    {{/each}}
+    {{/if}}
+  </ul>
+</div><!--/dashitem-->
+{{else}}
+<div class="empty-message clear-both float-left col-xs-12">
+  <h3>You don't have any students.</h3>
+</div>
+{{/each}}

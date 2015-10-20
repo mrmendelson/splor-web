@@ -6,7 +6,7 @@ var models = require('lib/models')
 var User = models.User
 var Class = models.Class
 
-router.get('/', function(req, res, next) {
+function renderClasses(req, res, next) {
   var teacherId = req.user.id
   Class.findAll({
     include: [{
@@ -23,10 +23,16 @@ router.get('/', function(req, res, next) {
       classes: classes
     })
   })
-})
+}
 
+router.get('/', renderClasses)
 router.post('/', function(req, res, next) {
-  res.json({success: true})
+  Class.create(req.body)
+  .then(function(saved) {
+    return saved.setTeacher(req.user)
+  })
+  .catch(next)
+  .then(renderClasses.bind(this, req, res, next))
 })
 
 module.exports = router
