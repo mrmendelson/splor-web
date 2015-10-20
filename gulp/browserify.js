@@ -12,7 +12,13 @@ var customOpts = {
   debug: true
 }
 var opts = Object.assign({}, watchify.args, customOpts)
-var b = watchify(browserify(opts))
+
+var b
+if (process.env.NODE_ENV !== 'production') {
+  b = watchify(browserify(opts))
+} else {
+  b = browserify(opts)
+}
 
 // add transformations here
 // i.e. b.transform(coffeeify)
