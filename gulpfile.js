@@ -2,7 +2,8 @@ var gulp = require('gulp'),
   nodemon = require('gulp-nodemon'),
   plumber = require('gulp-plumber'),
   livereload = require('gulp-livereload'),
-  sass = require('gulp-sass')
+  sass = require('gulp-sass'),
+  browserify = require('./gulp/browserify')
 
 gulp.task('sass', function () {
   gulp.src('./public/css/*.scss')
@@ -35,6 +36,7 @@ gulp.task('develop', function () {
 
 gulp.task('serve', [
   'sass',
+  'js',
   'develop',
   'watch'
 ])
