@@ -1,0 +1,21 @@
+<!-- PAIRINGS -->
+<div class="dash_pairings">
+	<div class="dash_header">
+		<div class="dash_header-left">
+			<h2 class="float-left">Manage Classes</h2>
+		</div><!--/dash_header-left-->
+		<div class="dash_header-right float-right">
+			<input class="float-right" id="filter" placeholder="Search" type=search name=s>
+		</div><!--/dash_header-right-->
+	</div><!--/dash_header-->
+	{{#each classes}}
+	<div class="dash_item-wrapper student clear-both float-left col-xs-12">
+		<input type="checkbox" class="float-left" aria-label="Pairings"><h3 class="float-left">{{name}}</h3>
+	</div><!--/dashitem-->
+	{{else}}
+	<div class="empty-message clear-both float-left col-xs-12">
+		<h3>You don't have any classes. Would you like to <a>create one?</a></h3>
+	</div>
+	{{/each}}
+</div><!--/dash_pairings-->
+<!-- PAIRINGS -->
