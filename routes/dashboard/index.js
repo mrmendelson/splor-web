@@ -27,7 +27,8 @@ router.get('/', function(req, res, next) {
     }]
   }).then(function(classes) {
     if (classes.length === 1) {
-      return res.redirect('/classes/' + classes[0].id)
+      res.redirect('/classes/' + classes[0].id)
+      return
     }
     return Promise.all([
       User.findAll({

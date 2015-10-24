@@ -7,17 +7,28 @@ var Pairing = models.Pairing
 var Exercise = models.Exercise
 
 module.exports = function(req, res, next) {
-  Class.findOne({
-    where: {
-      id: req.params.id
-    },
-    include: [{
-      model: User,
-      as: 'Teacher',
-      where: { id: req.user.id }
-    }]
-  })
-  .then(function(c) {
+  Promise.all([
+    Class.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [{
+        model: User,
+        as: 'Teacher',
+        where: { id: req.user.id }
+      }]
+    }),
+    User.count({
+      include: [{
+        model: Class,
+        as: 'Classes',
+        where: {
+          id: req.params.id
+        }
+      }]
+    })
+  ])
+  .spread(function(c, studentCount) {
     return Promise.all([
       Pairing.findAll({
         include: [{
@@ -34,13 +45,16 @@ module.exports = function(req, res, next) {
           model: Exercise
         }]
       }),
-      c
+      c,
+      studentCount
     ])
   })
-  .spread(function(pairings, c) {
+  .spread(function(pairings, c, studentCount) {
     res.render('class', {
       class: c,
-      pairings
+      pairings,
+      user: req.user,
+      studentCount: studentCount
     })
   })
   .catch(next)

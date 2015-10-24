@@ -343,3 +343,7 @@ img.dash_item.tutee {
     transform: rotate(360deg);
   }
 }
+
+.refresh-message {
+  font-size: 0.8em;
+}

@@ -3,7 +3,6 @@ var $ = require('jquery')
 
 var modules = [
   require('./global'),
-  require('./dashboard'),
   require('./students'),
   require('./classes/class')
 ]

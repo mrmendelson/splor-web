@@ -5,6 +5,7 @@ var logger = require('morgan')
 var cookieParser = require('cookie-parser')
 var bodyParser = require('body-parser')
 var exphbs = require('express-handlebars')
+var handlebarsHelpers = require('lib/handlebars-helpers')
 
 // Set up passport
 var passport = require('passport')
@@ -26,7 +27,8 @@ app.locals.ENV_DEVELOPMENT = env == 'development'
 app.engine('hbs', exphbs({
   extname: '.hbs',
   defaultLayout: 'main',
-  partialsDir: ['views/partials/']
+  partialsDir: ['views/partials/'],
+  helpers: handlebarsHelpers
 }))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'hbs')

@@ -1,3 +1,4 @@
+var ui = require('./ui')
 var $ = require('jquery')
 
 module.exports.path = '/*path'
@@ -31,4 +32,10 @@ module.exports.run = function() {
       }
     })
   })
+
+  // Refresh students
+  $('body').on('click', '.retrieve-students', ui.refreshEvent('/api/students/refresh', 'Refreshing students can take a very long time. Are you sure you want to refresh your students now?', function() {
+    // reload the page automatically once we've completed refreshing the students.
+    setTimeout(function() { window.location.reload() }, 4000)
+  }))
 }

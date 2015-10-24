@@ -5,18 +5,11 @@
       <div class="dash_header-left">
         <h2 class="float-left">Pairings</h2>
         <ul class="dash_header float-left">
-          <li><a href="" class="refresh-pairings" data-id={{class.id}}><span class="glyphicon glyphicon-refresh spinner"></span>Generate</a></li>
-          <li class="last"><a href=""><span class="glyphicon glyphicon-plus"></span>Add Custom</a></li>
+          <li><a href="javascript:void(0);" class="refresh-pairings" data-id={{class.id}}><span class="glyphicon glyphicon-refresh spinner"></span>Generate</a></li>
+          <li class="last"><a href="javascript:void(0);"><span class="glyphicon glyphicon-plus"></span>Add Custom</a></li>
         </ul>
       </div>
       <a href="#"><img class="" src="/img/btn_splor-all.png"></a>
-      <div class="dash_header-right float-right">
-        <h2 class="float-left">Sort by...</h2>
-        <select>
-            <option value="skill">Skill</option>
-            <option value="urgency">Urgency</option>
-        </select>
-      </div><!--/dash_header-right-->
     </div><!--/dash_header-->
     {{#each pairings}}
     <div class="dash_item-wrapper generated clear-both">
@@ -37,15 +30,14 @@
           <span>tutee</span>
         </div><!--/dash_item student-->
       </div><!--/dash_item students-->
-      <div class="btn-group dash_item btns col-md-2" role="group" aria-label="...">
-          <button type="button" class="btn btn-default">Edit</button>
-          <button type="button" class="btn btn-default">Delete</button>
-      </div><!--/.dash_item btns-->
+      <form action="/pairings/{{id}}/delete" method="post">
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
     </div><!--/dash-item-wrapper-->
     {{else}}
     <div class="dash_item-wrapper generated clear-both">
       <h3>No pairings found.</h3>
-      <a href="" class="refresh-pairings" data-id={{class.id}}><span class="glyphicon glyphicon-refresh spinner"></span>Generate now</a>
+      <a href="javascript:void(0);" class="refresh-pairings" data-id={{class.id}}><span class="glyphicon glyphicon-refresh spinner"></span>Generate now</a>
     </div>
     {{/each}}
   </div><!--/dash_pairings-->

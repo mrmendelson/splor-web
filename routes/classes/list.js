@@ -11,6 +11,9 @@ module.exports = function renderClasses(req, res, next) {
       model: User,
       as: 'Teacher',
       where: { id: teacherId }
+    }, {
+      model: User,
+      as: 'Students'
     }]
   })
   .catch(next)
