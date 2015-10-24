@@ -5,7 +5,7 @@
       <div class="dash_header-left">
         <h2 class="float-left">Pairings</h2>
         <ul class="dash_header float-left">
-          <li><a href="" class="refresh-pairings"><span class="glyphicon glyphicon-refresh spinner"></span>Generate</a></li>
+          <li><a href="" class="refresh-pairings" data-id={{class.id}}><span class="glyphicon glyphicon-refresh spinner"></span>Generate</a></li>
           <li class="last"><a href=""><span class="glyphicon glyphicon-plus"></span>Add Custom</a></li>
         </ul>
       </div>
@@ -45,7 +45,7 @@
     {{else}}
     <div class="dash_item-wrapper generated clear-both">
       <h3>No pairings found.</h3>
-      <a href="" class="refresh-pairings"><span class="glyphicon glyphicon-refresh spinner"></span>Generate now</a>
+      <a href="" class="refresh-pairings" data-id={{class.id}}><span class="glyphicon glyphicon-refresh spinner"></span>Generate now</a>
     </div>
     {{/each}}
   </div><!--/dash_pairings-->
