@@ -20,35 +20,39 @@ router.get('/', function(req, res, next) {
     })
   }
   if (!req.user) return render()
-  // TODO: need to find where teacher is req.user instead.
-  Promise.join(
-    Pairing.findAll({
-      include: [{
-        model: User,
-        as: 'Tutor'
-      }, {
-        model: User,
-        as: 'Tutee'
-      }, {
-        model: Exercise,
-        as: 'Exercise'
-      }]
-    }),
-    User.findAll({
-      include: [{
-        model: User,
-        as: 'Teachers',
-        where: { id: req.user.id }
-      }]
-    }),
-    Class.findAll({
-      include: [{
-        model: User,
-        as: 'Teacher',
-        where: { id: req.user.id }
-      }]
-    })
-  )
+  Class.findAll({
+    include: [{
+      model: User,
+      as: 'Teacher',
+      where: { id: req.user.id }
+    }]
+  }).then(function(classes) {
+    if (classes.length === 1) {
+      return res.redirect('/classes/' + classes[0].id)
+    }
+    return Promise.all([
+      Pairing.findAll({
+        include: [{
+          model: User,
+          as: 'Tutor'
+        }, {
+          model: User,
+          as: 'Tutee'
+        }, {
+          model: Exercise,
+          as: 'Exercise'
+        }]
+      }),
+      User.findAll({
+        include: [{
+          model: User,
+          as: 'Teachers',
+          where: { id: req.user.id }
+        }]
+      }),
+      classes
+    ])
+  })
   .catch(next)
   .spread(function(ps, us, cs) {
     if (ps.length) pairings = ps

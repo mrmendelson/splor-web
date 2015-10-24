@@ -1,36 +1,3 @@
-<div class="col-xs-3" id="nav_left">
-  <h2>Show...</h2>
-  <ul>
-    <li>
-      <h3>Type</h3>
-      <ul>
-        <li><input type="checkbox" aria-label="Pairings">Pairings</li>
-        <li><input type="checkbox" aria-label="Pairings">Workshops</li>
-      </ul>
-    </li>
-    {{#if classes}}
-    <li>
-      <h3>Class</h3>
-      <ul>
-        {{#each classes}}
-        <li><input type="checkbox" aria-label="Class" value={{id}}>{{name}}</li>
-        {{/each}}
-      </ul>
-    </li>
-    {{/if}}
-    <!-- <li>
-      <h3>Subject</h3>
-      <ul>
-        <li><input type="checkbox" aria-label="Pairings">Math</li>
-        <li><input type="checkbox" aria-label="Pairings">Science</li>
-        <li><input type="checkbox" aria-label="Pairings">English</li>
-      </ul>
-    </li> -->
-    <!-- <li><input type="checkbox" aria-label="Pairings"><h3>Suggested</h3></li>
-    <li><input type="checkbox" aria-label="Pairings"><h3>Custom</h3></li> -->
-  </ul>
-</div><!--/nav_left-->
-<!-- /LEFTNAV -->
 <div class="col-xs-9 pairings">
   <!-- PAIRINGS -->
   <div class="dash_pairings">
