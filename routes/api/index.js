@@ -6,6 +6,7 @@ var khanAPI = require('khan')(khanConfig.key, khanConfig.secret)
 
 router.use('/students', require('./students'))
 router.use('/pairings', require('./pairings'))
+router.use('/splor', require('./splor'))
 
 router.get('/khan/*', function(req, res, next) {
   var user = req.user

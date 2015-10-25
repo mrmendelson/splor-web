@@ -34,6 +34,7 @@
     "moment": "^2.10.6",
     "morgan": "^1.6.1",
     "node-uuid": "^1.4.3",
+    "nodemailer": "^1.8.0",
     "passport": "^0.3.0",
     "passport-khan": "jesseditson/passport-khan#jesseditson_khan",
     "pg": "^4.4.1",

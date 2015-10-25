@@ -59,7 +59,7 @@ function endpointRefresh(endpoint, done) {
     done(data, a)
   }
   $.ajax({
-    method: 'get',
+    method: 'post',
     url: endpoint,
     success: function(data) {
       if (data.jobId) {
@@ -99,7 +99,7 @@ module.exports.refreshEvent = function refreshEvent(endpoint, confirmMsg, done) 
     if (confirmMsg) confirmed = confirm(confirmMsg)
     if (confirmed) {
       // update UI to show loading
-      var spinner = $(e.target).find('.spinner')
+      var spinner = $(e.currentTarget).find('.spinner')
       spinner.addClass('spin')
       endpointRefresh(endpoint, function(data, a) {
         spinner.removeClass('spin')
