@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
  *
  * Fetches all students from khan academy and stores them in our database.
  */
-router.get('/refresh', function(req, res, next) {
+router.post('/refresh', function(req, res, next) {
   // generate a job id
   var jobuuid = uuid.v1()
   var jobId = 'refresh:' + jobuuid
@@ -47,7 +47,7 @@ router.get('/refresh', function(req, res, next) {
  *
  * Sends back the current status of a refresh job.
  */
-router.get('/refresh/:jobuuid', function(req, res, next) {
+router.all('/refresh/:jobuuid', function(req, res, next) {
   var jobId = 'refresh:' + req.params.jobuuid
   redisClient.getAsync(jobId)
   .then(function(status) {

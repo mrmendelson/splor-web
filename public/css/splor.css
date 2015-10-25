@@ -347,3 +347,8 @@ img.dash_item.tutee {
 .refresh-message {
   font-size: 0.8em;
 }
+
+.splor-button .spinner {
+  position: relative;
+  left: 250px;
+}
