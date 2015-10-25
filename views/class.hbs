@@ -1,6 +1,6 @@
 <h1>{{class.name}}</h1>
 <form action="/classes/{{class.id}}/delete" method="post">
-  <button type="submit" class="btn float-right btn-danger">Delete Class</button>
+  <button type="submit" class="btn float-right btn-danger" data-confirm="Deleting a class cannot be undone. Are you sure you want to delete '{{class.name}}'?">Delete Class</button>
 </form>
 {{#if studentCount}}
 {{> pairings}}

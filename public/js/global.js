@@ -38,4 +38,11 @@ module.exports.run = function() {
     // reload the page automatically once we've completed refreshing the students.
     setTimeout(function() { window.location.reload() }, 4000)
   }))
+
+  // Delete buttons
+  $('body').on('click', '.btn-danger', function(e) {
+    var msg = $(e.currentTarget).attr('data-confirm')
+    var ok = confirm(msg || 'Are you sure?')
+    if (!ok) e.preventDefault()
+  })
 }

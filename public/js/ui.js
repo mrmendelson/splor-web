@@ -55,14 +55,17 @@ var showAlert = function(message, isError) {
 
 function endpointRefresh(endpoint, done) {
   var alertMsg = function(data, isError) {
-    var a = showAlert(data.message, isError)
+    var a = showAlert(data.message || data.error, isError)
     done(data, a)
   }
   $.ajax({
     method: 'post',
     url: endpoint,
     success: function(data) {
-      if (data.jobId) {
+      if (data.error) {
+        // if there's an error, show it.
+        alertMsg(data, true)
+      } else if (data.jobId) {
         // if we got a jobId back, start polling the job endpoint for status.
         endpointRefresh(endpoint + '/' + data.jobId, done)
       } else if (data.status) {

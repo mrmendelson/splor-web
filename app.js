@@ -59,9 +59,13 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use('/js', express.static(path.join(__dirname, 'dist')))
 
+app.use('/api', ensureAuthenticated, api)
+// API Error Handler
+app.use('/api', function(err, req, res, next) {
+  res.json({ error: err.message, stack: err.stack })
+})
 app.use('/', auth)
 app.use('/', routes)
-app.use('/api', ensureAuthenticated, api)
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -82,6 +86,7 @@ if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500)
     res.render('error', {
+      user: req.user,
       message: err.message,
       text: err.response && err.response.text,
       error: err,
@@ -95,6 +100,7 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
   res.status(err.status || 500)
   res.render('error', {
+    user: req.user,
     message: err.message,
     error: {},
     title: 'error'
