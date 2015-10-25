@@ -9,49 +9,40 @@ var Pairing = models.Pairing
 var Exercise = models.Exercise
 
 router.get('/', function(req, res, next) {
-  var students, pairings, classes
+  var students, classes
   var render = function() {
     res.render('index', {
       title: 'Splor',
       user: req.user,
       students: students,
-      pairings: pairings,
       classes: classes
     })
   }
   if (!req.user) return render()
-  // TODO: need to find where teacher is req.user instead.
-  Promise.join(
-    Pairing.findAll({
-      include: [{
-        model: User,
-        as: 'Tutor'
-      }, {
-        model: User,
-        as: 'Tutee'
-      }, {
-        model: Exercise,
-        as: 'Exercise'
-      }]
-    }),
-    User.findAll({
-      include: [{
-        model: User,
-        as: 'Teachers',
-        where: { id: req.user.id }
-      }]
-    }),
-    Class.findAll({
-      include: [{
-        model: User,
-        as: 'Teacher',
-        where: { id: req.user.id }
-      }]
-    })
-  )
+  Class.findAll({
+    include: [{
+      model: User,
+      as: 'Teacher',
+      where: { id: req.user.id }
+    }]
+  }).then(function(classes) {
+    if (classes.length === 1) {
+      res.redirect('/classes/' + classes[0].id)
+      return
+    }
+    return Promise.all([
+      User.findAll({
+        include: [{
+          model: User,
+          as: 'Teachers',
+          where: { id: req.user.id }
+        }]
+      }),
+      classes
+    ])
+  })
   .catch(next)
-  .spread(function(ps, us, cs) {
-    if (ps.length) pairings = ps
+  .spread(function(us, cs) {
     if (us.length) students = us
     if (cs.length) classes = cs
     render()

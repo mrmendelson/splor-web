@@ -3,8 +3,8 @@ var $ = require('jquery')
 
 var modules = [
   require('./global'),
-  require('./dashboard'),
-  require('./students')
+  require('./students'),
+  require('./classes/class')
 ]
 
 var location = window.location.pathname

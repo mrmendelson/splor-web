@@ -1,0 +1,13 @@
+<h1>{{class.name}}</h1>
+<form action="/classes/{{class.id}}/delete" method="post">
+  <button type="submit" class="btn float-right btn-danger">Delete Class</button>
+</form>
+{{#if studentCount}}
+{{> pairings}}
+{{else}}
+<div class="col-xs-12 main">
+  <h2>No students found</h2>
+  <p>This class has no students. To add students to a class, visit the students page.</p>
+  <a href="/students">Add students to classes now.</a></li>
+</div>
+{{/if}}

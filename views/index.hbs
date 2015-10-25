@@ -3,12 +3,24 @@
 {{else}}
 <div class="row">
   {{#if students}}
-    {{> pairings}}
+    <div class="classList">
+      <h2>Classes</h2>
+      <p>Choose a class to generate pairings</p>
+      {{#each classes}}
+        {{> class}}
+      {{else}}
+      <div class="col-xs-12 main">
+        <h2>No classes found</h2>
+        <p>To generate pairings, add a class and add some students to it.</p>
+        <a href="/classes"></span>Add a class now</a></li>
+      </div>
+      {{/each}}
+    </div>
   {{else}}
   <div class="col-xs-12 main">
     <h2>No students found</h2>
-    <p>To generate pairings, you'll need to retrieve your khan students.</p>
-    <a href="" class="retrieve-students"><span class="glyphicon glyphicon-refresh spinner"></span>Retrieve students now.</a></li>
+    <p>To generate pairings, you'll need to retrieve your khan students and add them to classes.</p>
+    <a href="javascript:void(0);" class="retrieve-students"><span class="glyphicon glyphicon-refresh spinner"></span>Retrieve students now.</a></li>
   </div>
   {{/if}}
 </div><!--/row-->

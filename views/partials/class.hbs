@@ -1,0 +1,15 @@
+<a href="/classes/{{id}}">
+  <div class="dash_item-wrapper class clear-both float-left col-xs-12" data-filter="{{name}}">
+    <h3 class="float-left">{{name}}</h3>
+    <ul class="students float-right col-md-2 col-xs-12">
+      {{#if Students}}
+      <li><h5>Students</h5></li>
+      {{#each Students}}
+      <li class="dash_item student">
+        <p>{{name}}</p>
+      </li>
+      {{/each}}
+      {{/if}}
+    </ul>
+  </div><!--/dashitem-->
+</a>
