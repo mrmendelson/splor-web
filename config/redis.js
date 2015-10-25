@@ -9,6 +9,7 @@ if (process.env.REDIS_URL) {
     host: parsed.hostname,
     port: parsed.port,
     pass: parsed.password,
+    auth_pass: parsed.password,
     db: dbNum
   }
 } else {
