@@ -43,7 +43,7 @@ router.post('/:classId', function(req, res, next) {
     return new Promise(function(resolve, reject) {
       res.render('email/splorTutor', opts, function(err, tutorHtml) {
         if (err) return reject(err)
-        res.render('email/splorTutor', opts, function(err, tuteeHtml) {
+        res.render('email/splorTutee', opts, function(err, tuteeHtml) {
           if (err) return reject(err)
           resolve({
             pairing: pairing,
