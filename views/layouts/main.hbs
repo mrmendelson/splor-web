@@ -53,11 +53,13 @@
           <img class="float-left avatar" src="{{user.avatar}}">
           <div class="float-left">
             <h4 class="white">Welcome, {{user.name}}</h4>
+            {{#restrict 'SUPERUSER'}}
             <div class="refresh-message">
               <span>Last refreshed students {{fromNow user.lastRefresh}}.</span>
               <a href="javascript:void(0);" class="retrieve-students"><span class="glyphicon glyphicon-refresh spinner"></span>Retrieve students now.</a></li>
             </div>
             <!-- <p class="white">Active since October 2015</p> -->
+            {{/restrict}}
           </div>
         </div><!--/thumb_profile-->
         {{/if}}
