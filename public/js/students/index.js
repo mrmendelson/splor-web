@@ -4,7 +4,10 @@ var util = require('../util')
 module.exports.path = '/students'
 module.exports.run = function() {
   $('.container').on('click', '.student', function(e) {
-    var c = $(e.target).find('[type=checkbox]')
+    var t = $(e.target)
+    var c = t.find('[type=checkbox]')
+    // if we're already clicking the checkbox, we don't need to prevent default.
+    if (t.is('[type=checkbox]')) return
     c.prop('checked', !c.prop('checked'))
     e.preventDefault()
   })

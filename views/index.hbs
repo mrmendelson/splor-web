@@ -19,8 +19,13 @@
   {{else}}
   <div class="col-xs-12 main">
     <h2>No students found</h2>
+    {{#restrict 'SUPERUSER'}}
     <p>To generate pairings, you'll need to retrieve your khan students and add them to classes.</p>
     <a href="javascript:void(0);" class="retrieve-students"><span class="glyphicon glyphicon-refresh spinner"></span>Retrieve students now.</a></li>
+    {{else}}
+    <p>To generate pairings, students will need to add the splor teacher as a coach, then we'll need to refresh the student list.</p>
+    <a href="mailto:mmendelson@sierraacademy.net">Contact us if you need help</a>
+    {{/restrict}}
   </div>
   {{/if}}
 </div><!--/row-->
