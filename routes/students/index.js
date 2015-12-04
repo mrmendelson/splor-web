@@ -33,6 +33,18 @@ router.get('/', function(req, res, next) {
   )
   .catch(next)
   .spread(function(students, classes) {
+    // don't show classes that this teacher isn't teaching
+    var classIds = classes.reduce(function(o, aClass) {
+      o[aClass.id] = aClass
+      return o
+    }, {})
+    students = students.map(function(student) {
+      var student = student.get()
+      student.Classes = student.Classes.filter(function(aClass) {
+        return !!classIds[aClass.id]
+      })
+      return student
+    })
     res.render('students', {
       title: 'Students',
       user: req.user,
