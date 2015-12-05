@@ -13,7 +13,7 @@ installBrew ()
     brew_code=tryInstall "brew" 'ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
     return [ $brew_code -eq 0 ]
   else
-    return true
+    return 1
   fi
 }
 
@@ -89,7 +89,7 @@ if [ -z $env_exists ]; then
   echo $DEFAULT_ENV > .env
   echo "created env file."
   echo "you will need to add your Khan Academy credentials. Would you like to edit this file? [Y/n]"
-  read -n edit_file
+  read -n 1 edit_file
   edit_file = $(awk '{print tolower($0)}')
   [ $edit_file -eq "y" ] && nano $edit_file
 fi
