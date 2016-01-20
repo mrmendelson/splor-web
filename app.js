@@ -39,10 +39,15 @@ var RedisStore = require('connect-redis')(session)
 var sessionConfig = require('./config/sessions')
 var redisConfig = require('./config/redis')
 
+var redisStore = new RedisStore(redisConfig)
+redisStore.client.on('error', (err) => {
+  process.stderr.write('Error connecting to redis: ' + err.message + '\n')
+})
+
 app.use(session({
     key: sessionConfig.key,
     secret: sessionConfig.secret,
-    store: new RedisStore(redisConfig),
+    store: redisStore,
     resave: true,
     saveUninitialized: true
 }))

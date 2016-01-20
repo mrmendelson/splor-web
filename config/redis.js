@@ -13,9 +13,13 @@ if (process.env.REDIS_URL) {
     db: dbNum
   }
 } else {
+  var port = process.env.REDIS_PORT
+  if (isNaN(parseInt(port, 10))) {
+    port = process.env.REDIS_PORT_6379_TCP_PORT || 6379
+  }
   config = {
-    host: process.env.REDIS_HOST || 'localhost',
-    port: process.env.REDIS_PORT || 6379
+    host: process.env.REDIS_HOST || process.env.REDIS_PORT_6379_TCP_ADDR || 'localhost',
+    port: port
   }
 }
 

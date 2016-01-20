@@ -3,8 +3,8 @@ require('dotenv').load()
 var debug = require('debug')('SQL')
 
 var config = {
-  host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT || 5432,
+  host: process.env.DB_HOST || process.env.POSTGRES_PORT_5432_TCP_ADDR || 'localhost',
+  port: process.env.DB_PORT || process.env.POSTGRES_PORT_5432_TCP_PORT || 5432,
   dialect: process.env.DB_TYPE || 'postgres', // |'mariadb'|'sqlite'|'mysql'|'mssql',
   protocol: process.env.DB_TYPE || 'postgres',
   database: process.env.DB_NAME || 'splor',
@@ -13,8 +13,8 @@ var config = {
     min: 0,
     idle: 10000
   },
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS,
+  username: process.env.DB_USER || 'splor',
+  password: process.env.DB_PASS || '',
   logging: debug
 }
 

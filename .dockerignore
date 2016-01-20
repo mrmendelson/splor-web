@@ -1,0 +1,7 @@
+node_modules
+tmp
+seeders
+test
+npm-debug.log
+Procfile
+README.md

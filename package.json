@@ -3,9 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "redis-server --port 7889 & gulp serve",
-    "install": "cd node_modules && ln -nsf ../lib"
+    "start": "docker-compose up -d && npm run migrate",
+    "logs": "docker logs -f --tail=10 splorweb_splor_1",
+    "stop": "docker-compose stop",
+    "migrate": "docker-compose run splor sequelize db:migrate",
+    "dev": "gulp serve",
+    "prod": "node ./bin/www",
+    "postinstall": "mkdir -p tmp/postgresql"
   },
   "dependencies": {
     "async": "^1.4.2",
@@ -49,9 +53,6 @@
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0"
-  },
-  "devDependencies": {
-    "sqlite3": "^3.1.0"
   },
   "engines": {
     "node": "4.0.x",

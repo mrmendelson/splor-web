@@ -1,0 +1,27 @@
+splor:
+  build: .
+  env_file: .env
+  environment:
+    NODE_PATH: ./lib
+  volumes:
+    - .:/usr/src/app
+  links:
+    - redis
+    - postgres
+  ports:
+    - 80:4000
+  command: npm run dev
+redis:
+  image: redis:latest
+  ports:
+    - 6379:6379
+postgres:
+  image: postgres:latest
+  ports:
+    - 5432:5432
+  environment:
+    POSTGRES_USER: splor
+    POSTGRES_PASSWORD:
+    POSTGRES_DB: splor
+  volumes:
+    - ./tmp/postgresql:/var/lib/postgresql

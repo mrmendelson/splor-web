@@ -1,1 +1,1 @@
-web: gulp js && touch .env && npm start
+web: gulp js && touch .env && npm run prod
