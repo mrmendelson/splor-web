@@ -10,7 +10,7 @@
     "stop": "docker-compose stop",
     "migrate": "docker-compose run splor node_modules/sequelize-cli/bin/sequelize db:migrate",
     "dev": "gulp serve",
-    "prod": "node ./bin/www",
+    "prod": "NODE_PATH=$NODE_PATH:$(pwd) node ./bin/www",
     "postinstall": "mkdir -p tmp/postgresql && cp -n env.example .env"
   },
   "dependencies": {
