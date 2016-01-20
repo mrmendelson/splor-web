@@ -3,13 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
+    "init": "docker-compose run splor npm install && npm run postinstall",
     "start": "docker-compose up -d && npm run migrate",
     "logs": "docker logs -f --tail=10 splorweb_splor_1",
+    "open": "open \"http://$(docker-machine ip default)\"",
     "stop": "docker-compose stop",
-    "migrate": "docker-compose run splor sequelize db:migrate",
+    "migrate": "docker-compose run splor node_modules/sequelize-cli/bin/sequelize db:migrate",
     "dev": "gulp serve",
     "prod": "node ./bin/www",
-    "postinstall": "mkdir -p tmp/postgresql"
+    "postinstall": "mkdir -p tmp/postgresql && cp -n env.example .env"
   },
   "dependencies": {
     "async": "^1.4.2",
