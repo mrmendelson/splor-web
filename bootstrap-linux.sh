@@ -58,6 +58,7 @@ case $distro in
         # I hope this is right
         pm="sudo emerge -atv"
         pkgs="redis sqlite nodejs"
+	;;
 esac
 
 # Install Node via NVM if necessary (e.g. for Slackware)
