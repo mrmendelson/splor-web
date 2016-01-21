@@ -62,7 +62,7 @@ case $distro in
 esac
 
 # Install Node via NVM if necessary (e.g. for Slackware)
-if [ $USE_NVM = "YES" ]; then
+if [ -n $USE_NVM ]; then
     if ! nvm --version; then
         # I really hate piping to bash, but whatever.
         curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
