@@ -2,7 +2,10 @@
 
 # Sanity check: make sure we're actually on Linux
 # TODO: allow non-Darwin BSDs, too
-[[ $(uname) = "Linux" ]] || echo "This ain't Linux!" && exit 1
+if [ ! $(uname) = "Linux" ]; then
+    echo "This ain't Linux!"
+    exit 1
+fi
 
 # Detect distro
 if [ -f /etc/debian_version ]; then        # Debian, Ubuntu
