@@ -122,7 +122,7 @@ npm install
 `npm bin`/sequelize db:migrate
 
 # Done :)
-echo <<EOF
+cat <<EOF
 ########################################
 #    Completed bootstrapping splor.    #
 #    You can now run the dev server    #
