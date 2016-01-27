@@ -25,6 +25,8 @@ else
     echo "Not a supported distro."; exit 1
 fi
 
+echo "Detected $distro.  Installing packages..."
+
 # Select package manager and package names
 case $distro in
     debian)
@@ -75,16 +77,22 @@ fi
 # Install system dependencies
 $pm $pkgs
 
-# Generate .env
-RANDUMB=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
-RANDUMBER=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
+# Generate some random numbers
+token_secret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
+session_secret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
+
+# Get Khan Academy consumer key/secret from user
+echo -n "Khan Academy consumer key: "; read khan_key
+echo -n "Khan Academy consumer secret: "; read khan_secret
+
+# Write out .env
 cat <<EOF > .env
 # required
 
-KHAN_CONSUMER_KEY=
-KHAN_CONSUMER_SECRET=
-TOKEN_SECRET=${RANDUMB}
-SESSION_SECRET=${RANDUMBER}
+KHAN_CONSUMER_KEY=${khan_key}
+KHAN_CONSUMER_SECRET=${khan_secret}
+TOKEN_SECRET=${token_secret}
+SESSION_SECRET=${session_secret}
 MAILGUN_API_KEY=
 MAILGUN_DOMAIN=
 
