@@ -41,7 +41,7 @@ case $distro in
         $pm epel-release
 
         # Proceed as normal
-        pkgs="redis sqlite sqlite-devel"
+        pkgs="redis sqlite sqlite-devel npm"
         ;;
     suse)
         pm="sudo zypper install"
