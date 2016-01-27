@@ -7,6 +7,8 @@ if [ ! $(uname) = "Linux" ]; then
     exit 1
 fi
 
+echo "Examining your system..."
+
 # Detect distro
 if [ -f /etc/debian_version ]; then        # Debian, Ubuntu
     distro="debian"
@@ -24,8 +26,6 @@ else
     # TODO: be less picky
     echo "Not a supported distro."; exit 1
 fi
-
-echo "Detected $distro.  Installing packages..."
 
 # Select package manager and package names
 case $distro in
@@ -63,8 +63,11 @@ case $distro in
 	;;
 esac
 
+echo "Detected distro '${distro}'; using '${pm}' to install dependencies."
+
 # Install Node via NVM if necessary (e.g. for Slackware)
 if [ -n "$USE_NVM" ]; then
+    echo "Installing Node.js Version Manager (NVM)..."
     if ! nvm --version; then
         # I really hate piping to bash, but whatever.
         curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.30.1/install.sh | bash
@@ -75,6 +78,7 @@ if [ -n "$USE_NVM" ]; then
 fi
 
 # Install system dependencies
+echo "Installing packages: ${pkgs}"
 $pm $pkgs
 
 # Generate some random numbers
@@ -82,10 +86,12 @@ token_secret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
 session_secret=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 64 | head -n 1)
 
 # Get Khan Academy consumer key/secret from user
-echo -n "Khan Academy consumer key: "; read khan_key
-echo -n "Khan Academy consumer secret: "; read khan_secret
+echo "Please provide your Khan Academy API consumer key and secret."
+echo -n "Key: "; read khan_key
+echo -n "Secret: "; read khan_secret
 
 # Write out .env
+echo "Creating .env file with provided Khan Academy credentials..."
 cat <<EOF > .env
 # required
 
@@ -119,14 +125,17 @@ REDIS_PORT=7889
 EOF
 
 # Touch some stuff
+echo "Bootstrapping local database..."
 mkdir -p lib/db-seeders
 mkdir -p sqlite
 touch sqlite/splor.sqlite
 
 # Install app dependencies
+echo "Installing app dependencies..."
 npm install
 
 # Run migrations
+echo "Performing database migrations..."
 `npm bin`/sequelize db:migrate
 
 # Done :)
