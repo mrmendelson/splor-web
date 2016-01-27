@@ -17,7 +17,9 @@ How to set up your dev environment:
 - in the terminal, `cd` to this repo and run:
 
 ```bash
-./bootstrap.sh
+./bootstrap.sh        # If you're running OS X
+# OR
+./bootstrap-linux.sh  # If you're running a GNU/Linux distro
 ```
 
 This script will attempt to do the following automatically:
