@@ -15,6 +15,9 @@
       <div class="dash_item skill col-md-2 col-xs-12">
         <h4>Skill</h4>
         <p>{{Exercise.name}}</p>
+        <form action="/pairings/{{id}}/delete" method="post">
+          <button type="submit" class="veto-btn">Delete pairing</button>
+        </form>
       </div><!--/dash_item skill-->
       <div class="dash_item students col-md-7 col-xs-12">
         <h4>Students</h4>
@@ -29,9 +32,6 @@
           <span>tutee</span>
         </div><!--/dash_item student-->
       </div><!--/dash_item students-->
-      <form action="/pairings/{{id}}/delete" method="post">
-        <button type="submit" class="btn btn-danger">Veto</button>
-      </form>
     </div><!--/dash-item-wrapper-->
     {{else}}
     <div class="dash_item-wrapper generated clear-both">
