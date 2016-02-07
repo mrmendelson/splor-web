@@ -352,3 +352,11 @@ img.dash_item.tutee {
   position: relative;
   left: 250px;
 }
+
+.veto-btn {
+    background: none;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    display: inline;
+}
